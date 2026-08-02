@@ -41,9 +41,12 @@ body{
     width:650px;
     height:650px;
     border-radius:50%;
-    animation:girar 35s linear infinite;
+    animation:girar 25s linear infinite;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
-
+    
 .heart{
     position:absolute;
     top:50%;

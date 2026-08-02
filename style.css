@@ -133,4 +133,41 @@ body{
         opacity:1;
         transform:scale(1.03);
     }
+}#intro{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    animation:desaparecer 5s forwards;
+}
+
+#intro h1{
+    color:#ff6fb5;
+    font-size:2.6rem;
+    text-shadow:0 0 20px hotpink;
+}
+
+#intro h2{
+    color:white;
+    margin-top:10px;
+}
+
+#intro p{
+    color:#ffc0cb;
+    margin-top:20px;
+    font-size:1.2rem;
+}
+
+@keyframes desaparecer{
+    0%,80%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+        visibility:hidden;
+    }
 }

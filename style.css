@@ -62,7 +62,7 @@ body{
     0 0 80px hotpink,
     0 0 120px deeppink;
     filter: drop-shadow(0 0 35px #ff4fa3);
-animation: latido 1.1s ease-in-out infinite;
+animation: latido 2s infinite;
 }
 
 .heart::before,
@@ -435,6 +435,10 @@ max-width:80%;
     border-radius:20px;
     background:#ff4d88;
     color:white;
+    cursor:pointer;
+}.heart:hover{
+    filter:brightness(1.3);
+    transition:.4s;
     cursor:pointer;
 }
 

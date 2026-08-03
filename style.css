@@ -114,14 +114,49 @@ animation: latido 1.1s ease-in-out infinite;
     box-shadow:0 0 35px hotpink;
 }
 
-.foto1{top:0;left:50%;transform:translateX(-50%);}
-.foto2{top:90px;right:60px;}
-.foto3{top:50%;right:0;transform:translateY(-50%);}
-.foto4{bottom:90px;right:60px;}
-.foto5{bottom:0;left:50%;transform:translateX(-50%);}
-.foto6{bottom:90px;left:60px;}
-.foto7{top:50%;left:0;transform:translateY(-50%);}
-.foto8{top:90px;left:60px;}
+..foto1{
+    top:-40px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.foto2{
+    top:70px;
+    right:-20px;
+}
+
+.foto3{
+    top:50%;
+    right:-40px;
+    transform:translateY(-50%);
+}
+
+.foto4{
+    bottom:70px;
+    right:-20px;
+}
+
+.foto5{
+    bottom:-40px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.foto6{
+    bottom:70px;
+    left:-20px;
+}
+
+.foto7{
+    top:50%;
+    left:-40px;
+    transform:translateY(-50%);
+}
+
+.foto8{
+    top:70px;
+    left:-20px;
+}
 
 #mensaje{
     position:absolute;

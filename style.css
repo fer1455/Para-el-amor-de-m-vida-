@@ -181,4 +181,29 @@ body{
         transform:rotate(360deg);
     }
 
+}/* ÓRBITAS */
+
+.orbit{
+    position:absolute;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:50%;
+    animation:girar linear infinite;
+}
+
+.orbit1{
+    width:260px;
+    height:260px;
+    animation-duration:12s;
+}
+
+.orbit2{
+    width:400px;
+    height:400px;
+    animation-duration:18s;
+}
+
+.orbit3{
+    width:560px;
+    height:560px;
+    animation-duration:25s;
 }

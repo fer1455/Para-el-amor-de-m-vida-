@@ -206,4 +206,37 @@ body{
     width:560px;
     height:560px;
     animation-duration:25s;
+}/* CORAZONES FLOTANDO */
+
+#floating-hearts{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+    z-index:1;
+}
+
+.floating-heart{
+    position:absolute;
+    bottom:-30px;
+    color:#ff5ca8;
+    font-size:20px;
+    animation:subir 8s linear infinite;
+    opacity:.8;
+}
+
+@keyframes subir{
+    0%{
+        transform:translateY(0);
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translateY(-120vh);
+        opacity:0;
+    }
 }

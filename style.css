@@ -130,7 +130,13 @@ animation: latido 1.1s ease-in-out infinite;
     font-size:1.5rem;
     text-align:center;
     text-shadow:0 0 15px hotpink;
-}
+}opacity:0;
+transition:all .6s ease;
+padding:12px 20px;
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(8px);
+border-radius:20px;
+max-width:80%;
 
 @keyframes girar{
     from{transform:rotate(0deg);}
@@ -299,6 +305,9 @@ animation: latido 1.1s ease-in-out infinite;
     animation:
     girar 20s linear infinite,
     respirar 4s ease-in-out infinite;
+}.mostrarMensaje{
+    opacity:1 !important;
+    transform:scale(1.05);
 }
 
 @keyframes respirar{

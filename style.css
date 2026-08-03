@@ -77,6 +77,20 @@ animation: latido 1.1s ease-in-out infinite;
 
 .heart::before{
     top:-80px;
+}@keyframes pulsoLuz{
+
+    0%{
+        filter:drop-shadow(0 0 15px #ff4fa3);
+    }
+
+    50%{
+        filter:drop-shadow(0 0 60px #ff4fa3);
+    }
+
+    100%{
+        filter:drop-shadow(0 0 15px #ff4fa3);
+    }
+
 }
 
 .heart::after{

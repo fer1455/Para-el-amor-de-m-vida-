@@ -111,4 +111,13 @@ setInterval(() => {
 
     document.body.appendChild(star);
 
-        }
+        }const corazon = document.querySelector(".heart");
+const carta = document.getElementById("carta");
+
+corazon.addEventListener("click",()=>{
+    carta.classList.add("mostrar");
+});
+
+function cerrarCarta(){
+    carta.classList.remove("mostrar");
+}

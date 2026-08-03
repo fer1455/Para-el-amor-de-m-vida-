@@ -72,6 +72,26 @@ function crearCorazones(){
 
         },3200);
 
-    }
+    }const contenedor = document.getElementById("floating-hearts");
+
+setInterval(() => {
+
+    const corazon = document.createElement("div");
+
+    corazon.className = "floating-heart";
+
+    corazon.innerHTML = "❤";
+
+    corazon.style.left = Math.random()*100+"vw";
+
+    corazon.style.fontSize = (15+Math.random()*25)+"px";
+
+    contenedor.appendChild(corazon);
+
+    setTimeout(()=>{
+        corazon.remove();
+    },8000);
+
+},500);
 
 }

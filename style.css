@@ -403,6 +403,39 @@ max-width:80%;
         opacity:.2;
         transform:scale(.8) rotate(360deg);
     }
+}.carta{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%) scale(0);
+    width:320px;
+    max-width:90%;
+    background:white;
+    color:#ff3f81;
+    border-radius:20px;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 0 40px hotpink;
+    transition:.5s;
+    z-index:999;
+}
+
+.carta.mostrar{
+    transform:translate(-50%,-50%) scale(1);
+}
+
+.carta h2{
+    margin-bottom:15px;
+}
+
+.carta button{
+    margin-top:20px;
+    border:none;
+    padding:10px 20px;
+    border-radius:20px;
+    background:#ff4d88;
+    color:white;
+    cursor:pointer;
 }
 
 }

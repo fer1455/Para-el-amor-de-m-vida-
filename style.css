@@ -45,7 +45,7 @@ body{
     justify-content:center;
     align-items:center;
     animation:girar 30s linear infinite;
-}
+}animation:girar 25s linear infinite;
     
 .heart{
     position:absolute;

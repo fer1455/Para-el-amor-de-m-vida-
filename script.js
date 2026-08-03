@@ -20,7 +20,11 @@ fotos.forEach((foto, index) => {
     foto.addEventListener("click", () => {
 
         mensaje.innerHTML = frases[index];
+mensaje.classList.remove("mostrarMensaje");
 
+setTimeout(()=>{
+    mensaje.classList.add("mostrarMensaje");
+},50);
         foto.animate([
             {transform:"scale(1)"},
             {transform:"scale(1.25)"},

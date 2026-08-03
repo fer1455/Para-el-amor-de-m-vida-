@@ -36,15 +36,15 @@ body{
     animation:brillo 2s infinite alternate;
 }
 
-.galaxy{
+..galaxy{
     position:relative;
     width:650px;
     height:650px;
     border-radius:50%;
-    animation:girar 25s linear infinite;
     display:flex;
     justify-content:center;
     align-items:center;
+    animation:girar 30s linear infinite;
 }
     
 .heart{

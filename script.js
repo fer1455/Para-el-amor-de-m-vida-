@@ -1,117 +1,128 @@
-// ==========================
-// FRASES PARA LAS FOTOS
-// ==========================
+import * as THREE from "https://unpkg.com/three@0.170.0/build/three.module.js";
 
-const frases = [
-"Te amo musho🤍🥺",
-"Sos mi pequeño planeta🌎",
-"🫶 Mi persona favorita🥺",
-"🥰 Te amo infinitamente♾️",
-"Sos el amor de mi vida♥️💕",
-"Mi felicidad🫶🏻",
-"Te elegiría mil veces💋🤍",
-"Sos muy especial para mi vida preciosa🥺🤍🫶🏻"
-];
+const scene = new THREE.Scene();
+// Fondo negro del espacio
+scene.background = new THREE.Color(0x000011);
 
-const fotos = document.querySelectorAll(".foto");
-const mensaje = document.getElementById("mensaje");
-
-fotos.forEach((foto, index) => {
-
-    foto.addEventListener("click", () => {
-
-        mensaje.innerHTML = frases[index];
-
-        foto.animate([
-            {transform:"scale(1)"},
-            {transform:"scale(1.2)"},
-            {transform:"scale(1)"}
-        ],{
-            duration:400
-        });
-
-    });
-
-});
-
-// ==========================
-// CARTA ROMÁNTICA
-// ==========================
-
-const heart = document.querySelector(".heart");
-
-heart.addEventListener("click", () => {
-
-    alert(
-`💌 Para el amor de mi vida 💌
-
-Gracias por hacer mi vida más bonita.
-
-Cada momento con vos es un recuerdo que quiero guardar para siempre.
-
-Te amo muchísimo mi amor. 🤍🥺
-
-Sos mi pequeño universo. 🌎❤️`
+// Cámara
+const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
 );
 
+camera.position.z = 30;
+
+// Renderizador
+const renderer = new THREE.WebGLRenderer({
+    antialias: true
 });
 
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+document.body.appendChild(renderer.domElement);
 // ==========================
-// ESTRELLAS
+// ESTRELLAS 3D
 // ==========================
 
-for(let i=0;i<120;i++){
+const starsGeometry = new THREE.BufferGeometry();
 
-    const star=document.createElement("div");
+const starsCount = 6000;
+const positions = [];
 
-    star.className="star";
+for (let i = 0; i < starsCount; i++) {
 
-    star.style.left=Math.random()*100+"vw";
-
-    star.style.top=Math.random()*100+"vh";
-
-    star.style.animationDuration=(1+Math.random()*3)+"s";
-
-    document.getElementById("stars").appendChild(star);
+    positions.push((Math.random() - 0.5) * 2000);
+    positions.push((Math.random() - 0.5) * 2000);
+    positions.push((Math.random() - 0.5) * 2000);
 
 }
 
+starsGeometry.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(positions, 3)
+);
+
+const starsMaterial = new THREE.PointsMaterial({
+    color: 0xffffff,
+    size: 1.5
+});
+
+const stars = new THREE.Points(
+    starsGeometry,
+    starsMaterial
+);
+
+scene.add(stars);
 // ==========================
-// CORAZONES FLOTANDO
-// ==========================
-
-const floating=document.getElementById("floating-hearts");
-
-setInterval(()=>{
-
-    const h=document.createElement("div");
-
-    h.className="floating-heart";
-
-    h.innerHTML="🤍";
-
-    h.style.left=Math.random()*100+"vw";
-
-    h.style.fontSize=(15+Math.random()*20)+"px";
-
-    floating.appendChild(h);
-
-    setTimeout(()=>{
-
-        h.remove();
-
-    },8000);
-
-},500);
-
-// ==========================
-// MÚSICA
+// ANIMACIÓN
 // ==========================
 
-const musica=document.getElementById("musica");
+function animate() {
 
-document.body.addEventListener("click",()=>{
+    requestAnimationFrame(animate);
 
-    musica.play();
+    stars.rotation.y += 0.0003;
 
-},{once:true});
+    renderer.render(scene, camera);
+galaxyCore.rotation.y += 0.01;
+galaxyCore.rotation.x += 0.005;
+    galaxy.rotation.y += 0.0015;
+}// ==========================
+// NÚCLEO DE LA GALAXIA
+// ==========================
+
+const galaxyGeometry = new THREE.SphereGeometry(2.5, 64, 64);
+
+const galaxyMaterial = new THREE.MeshBasicMaterial({
+    color: 0xff4fa3
+});
+
+const galaxyCore = new THREE.Mesh(
+    galaxyGeometry,
+    galaxyMaterial
+);
+
+scene.add(galaxyCore);
+// ==========================
+// BRAZOS DE LA GALAXIA
+// ==========================
+
+const galaxyGeometry2 = new THREE.BufferGeometry();
+
+const galaxyCount = 25000;
+
+const galaxyPositions = [];
+
+for(let i = 0; i < galaxyCount; i++){
+
+    const radius = Math.random() * 40;
+
+    const angle = radius * 0.4;
+
+    galaxyPositions.push(
+        Math.cos(angle) * radius + (Math.random()-0.5)*2,
+        (Math.random()-0.5)*2,
+        Math.sin(angle) * radius + (Math.random()-0.5)*2
+    );
+
+}
+
+galaxyGeometry2.setAttribute(
+    "position",
+    new THREE.Float32BufferAttribute(galaxyPositions,3)
+);
+
+const galaxyMaterial2 = new THREE.PointsMaterial({
+    color:0xff99ff,
+    size:0.18
+});
+
+const galaxy = new THREE.Points(
+    galaxyGeometry2,
+    galaxyMaterial2
+);
+
+scene.add(galaxy);
+animate();

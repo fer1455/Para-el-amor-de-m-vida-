@@ -1,3 +1,5 @@
+alert("Script iniciado");
+
 import * as THREE from "https://unpkg.com/three@0.170.0/build/three.module.js";
 
 // ======================
@@ -142,6 +144,8 @@ function animate(){
 
     renderer.render(scene,camera);
 
-}
+}document.getElementById("loading").classList.add("oculto");
+
+console.log("Three.js cargó correctamente");
 
 animate();

@@ -1,128 +1,147 @@
 import * as THREE from "https://unpkg.com/three@0.170.0/build/three.module.js";
 
-const scene = new THREE.Scene();
-// Fondo negro del espacio
-scene.background = new THREE.Color(0x000011);
+// ======================
+// ESCENA
+// ======================
 
-// Cámara
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x000010);
+
+// ======================
+// CÁMARA
+// ======================
+
 const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
     0.1,
-    1000
+    3000
 );
 
-camera.position.z = 30;
+camera.position.set(0, 8, 45);
 
-// Renderizador
+// ======================
+// RENDER
+// ======================
+
 const renderer = new THREE.WebGLRenderer({
     antialias: true
 });
 
+renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 
 document.body.appendChild(renderer.domElement);
-// ==========================
-// ESTRELLAS 3D
-// ==========================
 
-const starsGeometry = new THREE.BufferGeometry();
+// ======================
+// LUCES
+// ======================
 
-const starsCount = 6000;
-const positions = [];
+const ambient = new THREE.AmbientLight(0xffffff,1.5);
+scene.add(ambient);
 
-for (let i = 0; i < starsCount; i++) {
+const point = new THREE.PointLight(0xff88cc,10,500);
 
-    positions.push((Math.random() - 0.5) * 2000);
-    positions.push((Math.random() - 0.5) * 2000);
-    positions.push((Math.random() - 0.5) * 2000);
+point.position.set(0,0,0);
+
+scene.add(point);
+
+// ======================
+// REDIMENSIONAR
+// ======================
+
+window.addEventListener("resize",()=>{
+
+camera.aspect=window.innerWidth/window.innerHeight;
+
+camera.updateProjectionMatrix();
+
+renderer.setSize(window.innerWidth,window.innerHeight);
+
+});// ======================
+// GALAXIA ESPIRAL
+// ======================
+
+const galaxyGroup = new THREE.Group();
+scene.add(galaxyGroup);
+
+const galaxyGeometry = new THREE.BufferGeometry();
+
+const galaxyCount = 30000;
+
+const positions = new Float32Array(galaxyCount * 3);
+const colors = new Float32Array(galaxyCount * 3);
+
+const colorInside = new THREE.Color("#ff7ac8");
+const colorOutside = new THREE.Color("#7a6bff");
+
+for(let i = 0; i < galaxyCount; i++){
+
+    const i3 = i * 3;
+
+    const radius = Math.random() * 40;
+
+    const spin = radius * 0.4;
+
+    const branch = (i % 5) * ((Math.PI * 2) / 5);
+
+    positions[i3] =
+        Math.cos(branch + spin) * radius + (Math.random() - 0.5);
+
+    positions[i3 + 1] =
+        (Math.random() - 0.5) * 2;
+
+    positions[i3 + 2] =
+        Math.sin(branch + spin) * radius + (Math.random() - 0.5);
+
+    const mixedColor = colorInside.clone();
+
+    mixedColor.lerp(colorOutside, radius / 40);
+
+    colors[i3] = mixedColor.r;
+    colors[i3 + 1] = mixedColor.g;
+    colors[i3 + 2] = mixedColor.b;
 
 }
 
-starsGeometry.setAttribute(
+galaxyGeometry.setAttribute(
     "position",
-    new THREE.Float32BufferAttribute(positions, 3)
+    new THREE.BufferAttribute(positions, 3)
 );
 
-const starsMaterial = new THREE.PointsMaterial({
-    color: 0xffffff,
-    size: 1.5
-});
-
-const stars = new THREE.Points(
-    starsGeometry,
-    starsMaterial
+galaxyGeometry.setAttribute(
+    "color",
+    new THREE.BufferAttribute(colors, 3)
 );
 
-scene.add(stars);
-// ==========================
-// ANIMACIÓN
-// ==========================
+const galaxyMaterial = new THREE.PointsMaterial({
 
-function animate() {
+    size:0.18,
 
-    requestAnimationFrame(animate);
+    vertexColors:true,
 
-    stars.rotation.y += 0.0003;
+    transparent:true,
 
-    renderer.render(scene, camera);
-galaxyCore.rotation.y += 0.01;
-galaxyCore.rotation.x += 0.005;
-    galaxy.rotation.y += 0.0015;
-}// ==========================
-// NÚCLEO DE LA GALAXIA
-// ==========================
+    depthWrite:false,
 
-const galaxyGeometry = new THREE.SphereGeometry(2.5, 64, 64);
+    blending:THREE.AdditiveBlending
 
-const galaxyMaterial = new THREE.MeshBasicMaterial({
-    color: 0xff4fa3
 });
 
-const galaxyCore = new THREE.Mesh(
+const galaxy = new THREE.Points(
     galaxyGeometry,
     galaxyMaterial
 );
 
-scene.add(galaxyCore);
-// ==========================
-// BRAZOS DE LA GALAXIA
-// ==========================
+galaxyGroup.add(galaxy);
+function animate(){
 
-const galaxyGeometry2 = new THREE.BufferGeometry();
+    requestAnimationFrame(animate);
 
-const galaxyCount = 25000;
+    galaxyGroup.rotation.y += 0.0008;
 
-const galaxyPositions = [];
-
-for(let i = 0; i < galaxyCount; i++){
-
-    const radius = Math.random() * 40;
-
-    const angle = radius * 0.4;
-
-    galaxyPositions.push(
-        Math.cos(angle) * radius + (Math.random()-0.5)*2,
-        (Math.random()-0.5)*2,
-        Math.sin(angle) * radius + (Math.random()-0.5)*2
-    );
+    renderer.render(scene,camera);
 
 }
 
-galaxyGeometry2.setAttribute(
-    "position",
-    new THREE.Float32BufferAttribute(galaxyPositions,3)
-);
-
-const galaxyMaterial2 = new THREE.PointsMaterial({
-    color:0xff99ff,
-    size:0.18
-});
-
-const galaxy = new THREE.Points(
-    galaxyGeometry2,
-    galaxyMaterial2
-);
-
-scene.add(galaxy);
 animate();
